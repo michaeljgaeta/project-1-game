@@ -1,10 +1,13 @@
 const $canvas = document.querySelector("canvas");
 const newGame = new Game($canvas);
-const $buttonStart = document.getElementById("start");
 
+const $buttonStart = document.getElementById("start");
 const $buttonPause = document.getElementById("pause");
+const $buttonReset = document.getElementById("reset");
 
 //main functions invoked here
+
+newGame.initiateTitleScreen();
 
 $buttonStart.addEventListener("click", () => {
   newGame.startGame();
@@ -12,4 +15,8 @@ $buttonStart.addEventListener("click", () => {
 
 $buttonPause.addEventListener("click", () => {
   newGame.pause();
+});
+
+$buttonReset.addEventListener("click", () => {
+  newGame.reset();
 });

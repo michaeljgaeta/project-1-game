@@ -17,47 +17,27 @@ class Ball {
     context.fill();
   }
 
-  changeBallPosition() {
-    //conditionals mapped to canvas position and ball speed based on controller logic
-    window.addEventListener("keydown", (event) => {
-      event.preventDefault();
+  move(direction) {
+    switch (direction) {
+      case "left": //left arrow
+        this.x -= 200 / this.size;
+        break;
+      case "up": //up arrow
+        this.y -= 200 / this.size;
+        break;
+      case "right": //right arrow
+        this.x += 200 / this.size;
+        break;
+      case "down": //down arrow
+        this.y += 200 / this.size;
+        break;
+    }
+    if (this.x >= $canvas.width - this.size || this.x <= this.size) {
+      this.x = $canvas.width - this.size;
+    }
 
-      switch (event.keyCode) {
-        case 37: //left arrow
-          this.x -= 200 / this.size;
-          break;
-        case 38: //up arrow
-          this.y -= 200 / this.size;
-          break;
-        case 39: //right arrow
-          this.x += 200 / this.size;
-          break;
-        case 40: //down arrow
-          this.y += 200 / this.size;
-          break;
-      }
-    });
-  }
-
-  changeBallSize(keyCode) {
-    //conditionals mapped to ball size based on controller logic
-    window.addEventListener("keydown", (event) => {
-      event.preventDefault();
-
-      if (this.size <= 5) {
-        this.size = 5;
-      } //prevent ball size smaller than 5px;
-
-      switch (event.keyCode) {
-        case 83: //'s'
-          this.size += 5;
-          //compoundScore(83);
-          break;
-        case 65: //'a'
-          this.size -= 5;
-          //ompoundScore(65);
-          break;
-      }
-    });
+    if (this.y >= $canvas.height - this.size || this.y <= this.size) {
+      this.y = $canvas.height - this.size;
+    }
   }
 }
