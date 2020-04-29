@@ -163,12 +163,12 @@ class Game {
   }
 
   drawGameOver() {
-    this.context.font = "64px sans-serif";
-    this.context.fillText("Game Over! Score: " + this.score, $canvas.width / 2, $canvas.height / 2);
+    this.loseNoise();
+    this.context.font = "42px sans-serif";
+    this.context.fillText(`Game Over! Score: ${this.score}`, 200, 250);
+    context.fillText(`Game Over!`, $canvas.width / 2, $canvas.height / 2);
     //("Game Over! Score: " + this.score.toFixed(1)
     this.running = !this.running;
-    const context = this.context;
-    this.loseNoise();
   }
 
   checkCollision() {
