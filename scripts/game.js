@@ -20,8 +20,10 @@ class Game {
     this.scoreTime = 0;
     this.increaseScore = 1000;
 
-    // set key bindings for the game
+    // set key bindings and sets title screen
     this.setKeyBindings();
+    this.drawTitleScreen();
+    this.playTitleAudio();
   }
 
   setKeyBindings() {
@@ -53,20 +55,16 @@ class Game {
   }
 
   drawTitleScreen() {
-    const titleScreenURL = "images/risk-runner-title.png";
-    const titleScreen = new Image();
-    titleScreen.src = titleScreenURL;
-    this.context.drawImage(titleScreen, 100, 120, 300, 500, 100, 100, 66, 100);
+    const titleImg = new Image();
+    titleImg.src = "/images/risk-runner-title.png";
+    titleImg.addEventListener("load", () => {
+      this.context.drawImage(titleImg, 0, 0);
+    });
   }
 
   playTitleAudio() {
     const titleAudio = new Audio("audios/video-game-beeps.wav");
     titleAudio.play();
-  }
-
-  initiateTitleScreen() {
-    this.drawTitleScreen();
-    this.playTitleAudio();
   }
 
   clearCanvas() {

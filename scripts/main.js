@@ -7,8 +7,6 @@ const $buttonReset = document.getElementById("reset");
 
 //main functions invoked here
 
-newGame.initiateTitleScreen();
-
 $buttonStart.addEventListener("click", () => {
   newGame.startGame();
 });
