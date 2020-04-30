@@ -1,3 +1,21 @@
+const gameMusic = new Audio("audios/8-bit-game-music.mp3");
+const backgroundImage0 = new Image();
+backgroundImage0.src = "/images/8-bit-day-0.jpg";
+const backgroundImage1 = new Image();
+backgroundImage1.src = "/images/8-bit-day-1.jpg";
+const backgroundImage2 = new Image();
+backgroundImage2.src = "/images/8-bit-day-2.jpg";
+const backgroundImage3 = new Image();
+backgroundImage3.src = "/images/8-bit-day-3.jpg";
+const backgroundImage4 = new Image();
+backgroundImage4.src = "/images/8-bit-day-4.jpg";
+const backgroundImage5 = new Image();
+backgroundImage5.src = "/images/8-bit-day-5.jpg";
+const backgroundImage6 = new Image();
+backgroundImage6.src = "/images/8-bit-day-6.jpg";
+const backgroundImage7 = new Image();
+backgroundImage7.src = "/images/8-bit-day-7.jpg";
+
 class Game {
   constructor($canvas) {
     this.$canvas = $canvas;
@@ -9,15 +27,14 @@ class Game {
 
     // timestamp for changing game difficulty
     this.speed = 0;
-    this.levelTime = 0;
     this.difficulty1 = 12000;
     this.difficulty2 = 24000;
     this.difficulty3 = 36000;
     this.difficulty4 = 48000;
-    this.running = "";
+    this.difficulty = 12000;
 
     // timestamp to increase the score
-    this.scoreTime = 0;
+
     this.increaseScore = 1000;
 
     // set key bindings and sets title screen
@@ -62,6 +79,24 @@ class Game {
     });
   }
 
+  drawBackground() {
+    if (this.level === 0) {
+      this.context.drawImage(backgroundImage0, 0, 0);
+    } else if (this.level === 1) {
+      this.context.drawImage(backgroundImage1, 0, 0);
+    } else if (this.level === 2) {
+      this.context.drawImage(backgroundImage2, 0, 0);
+    } else if (this.level === 3) {
+      this.context.drawImage(backgroundImage3, 0, 0);
+    } else if (this.level === 4) {
+      this.context.drawImage(backgroundImage4, 0, 0);
+    } else if (this.level === 5) {
+      this.context.drawImage(backgroundImage5, 0, 0);
+    } else if (this.level >= 6) {
+      this.context.drawImage(backgroundImage6, 0, 0);
+    }
+  }
+
   playTitleAudio() {
     const titleAudio = new Audio("audios/video-game-beeps.wav");
     titleAudio.play();
@@ -72,31 +107,49 @@ class Game {
   }
 
   playGameMusic() {
-    const gameMusic = new Audio("audios/nuts-and-bolts-short.wav");
     gameMusic.play();
   }
 
-  startGame() {
-    this.running = true;
-    this.blockTime = 0;
-    this.levelTime = 0;
-    this.scoreTime = 0;
-    this.speed = 0;
-    this.blocksArr = [];
-    this.timestamp = 0;
-    this.ball = new Ball(this);
-    this.score = new Score(this);
-    this.loop(0);
+  pauseGameMusic() {
+    gameMusic.pause();
   }
 
-  pause() {
-    this.running = !this.running;
+  startGame() {
+    //this.running = true;
+    this.blockTime = 0;
+    this.levelTime = 0;
+    this.level = 0;
+    this.scoreTime = 0;
+
+    this.speed = 0;
+
+    console.log(this.speed);
+    console.log(this.levelTime);
+
+    this.blocksArr = [];
+    this.timestamp = 0;
+
+    //console.log(this.timestamp);
+
+    this.ball = new Ball(this);
+    this.score = new Score(this);
+    if (!this.running) {
+      this.running = true;
+      this.loop();
+    }
+    this.playGameMusic();
+  }
+
+  pauseGame() {
     if (this.running === true) {
+      this.running = !this.running;
+    } else {
+      this.running = !this.running;
       this.loop();
     }
   }
 
-  reset() {
+  resetGame() {
     this.startGame();
   }
 
@@ -109,23 +162,12 @@ class Game {
       this.score.increaseScore();
     }
     // changing difficulty
-    if (this.levelTime > timestamp - this.difficulty1) {
-      this.speed = 4;
-      console.log("difficulty 1");
-    } else if (this.levelTime > timestamp - this.difficulty2) {
-      this.speed = 8;
-      console.log("difficulty 2");
-    } else if (this.levelTime > timestamp - this.difficulty3) {
-      this.speed = 12;
-      console.log("difficulty 3");
-    } else if (this.levelTime > timestamp - this.difficulty4) {
-      this.speed = 16;
-      console.log("difficulty 4");
-    } else {
-      this.speed = 20;
-      console.log("difficulty 5");
+    if (this.levelTime < timestamp - this.difficulty) {
+      this.levelTime = timestamp;
+      this.level++;
+      this.speed = 4 * this.level;
+      console.log(this.level, this.speed);
     }
-
     if (this.blockTime < timestamp - this.range) {
       this.blockTime = timestamp;
       const block = new Block(this, $canvas.width, Math.random() * $canvas.height, Math.random() * this.speed + 1);
@@ -138,19 +180,21 @@ class Game {
   }
 
   drawEverything() {
-    this.clearCanvas();
-    this.ball.drawBall();
-    for (let block of this.blocksArr) {
-      block.drawBlocks();
+    if (this.running) {
+      this.clearCanvas();
+      this.drawBackground();
+      this.ball.drawBall();
+      for (let block of this.blocksArr) {
+        block.drawBlocks();
+      }
     }
     this.score.drawScore();
   }
-
   loop(timestamp) {
     this.runLogic(timestamp);
     this.drawEverything();
     if (this.running === true) {
-      window.requestAnimationFrame((timestamp) => {
+      this.timestampId = window.requestAnimationFrame((timestamp) => {
         this.loop(timestamp);
       });
     }
@@ -163,12 +207,12 @@ class Game {
   }
 
   drawGameOver() {
+    this.running = false;
     this.loseNoise();
+    this.pauseGameMusic();
     this.context.font = "42px sans-serif";
-    this.context.fillText(`Game Over! Score: ${this.score}`, 200, 250);
-    context.fillText(`Game Over!`, $canvas.width / 2, $canvas.height / 2);
-    //("Game Over! Score: " + this.score.toFixed(1)
-    this.running = !this.running;
+    this.context.fillText(`Game Over! Score: ${this.score.score}`, 250, $canvas.height / 2);
+    //context.fillText(`Game Over! Score: ${this.score.score}`, 350, $canvas.height / 2);
   }
 
   checkCollision() {

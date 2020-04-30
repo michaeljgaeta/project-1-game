@@ -16,7 +16,7 @@ class Score {
     // const rate = this.rate;
 
     context.font = "24px sans-serif";
-    context.fillText(`Score: ${score.toFixed(1)} - (${rate.toFixed(1)}+ bonus)`, 500, 25);
+    context.fillText(`Score: ${score.toFixed(1)} - (${rate.toFixed(1)}+ bonus)`, 375, 30);
   }
 
   increaseScore() {

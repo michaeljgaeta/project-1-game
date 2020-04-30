@@ -12,9 +12,9 @@ $buttonStart.addEventListener("click", () => {
 });
 
 $buttonPause.addEventListener("click", () => {
-  newGame.pause();
+  newGame.pauseGame();
 });
 
 $buttonReset.addEventListener("click", () => {
-  newGame.reset();
+  newGame.resetGame();
 });

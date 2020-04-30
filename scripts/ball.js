@@ -7,7 +7,6 @@ class Ball {
   }
 
   drawBall() {
-    //draws the ball based on canvas functions
     const context = this.game.context;
     context.strokeStyle = "black";
     context.beginPath();
