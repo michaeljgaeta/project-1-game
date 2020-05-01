@@ -31,12 +31,19 @@ class Ball {
         this.y += 200 / this.size;
         break;
     }
+    //ball logic to stay in canvas
     if (this.x >= $canvas.width - this.size || this.x <= this.size) {
       this.x = $canvas.width - this.size;
     }
+    /*if (this.x <= 0 - this.size || this.x >= this.size) {
+      this.x = 0 - this.size;
+    }*/
 
     if (this.y >= $canvas.height - this.size || this.y <= this.size) {
       this.y = $canvas.height - this.size;
     }
+    /*if (this.y <= 0 - this.size || this.y >= this.size) {
+      this.y = 0 - this.size;
+    }*/
   }
 }

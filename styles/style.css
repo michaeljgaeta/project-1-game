@@ -1,10 +1,6 @@
 /*8-bit-day wallpaper set downloaded from http://getwallpapers.com/collection/8-bit-day-wallpaper*/
 
-canvas {
-  border-style: solid 5px black;
-}
-
-button {
+/*.#button {
   color: #494949 !important;
   text-transform: uppercase;
   text-decoration: none;
@@ -14,4 +10,22 @@ button {
   display: inline-block;
   transition: all 0.2s ease 0s;
   margin-top: 7px;
+  position: absolute;
+  top: 1100px;
+  left: 200px;
+  z-index: 3;
+}*/
+
+#canvas {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 2;
+  font-family: Press-Start-2P;
+}
+#gb {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
 }

@@ -41,6 +41,7 @@ class Game {
     this.setKeyBindings();
     this.drawTitleScreen();
     this.playTitleAudio();
+    //this.drawTitleText();
   }
 
   setKeyBindings() {
@@ -48,10 +49,10 @@ class Game {
       event.preventDefault();
       if (this.running) {
         switch (event.keyCode) {
-          case 83: //'s' bigger ball
+          case 77: //'.' bigger ball
             this.ball.size += 5;
             break;
-          case 65: //'a' smaller ball
+          case 78: //',' smaller ball
             this.ball.size = Math.max(this.ball.size - 5, 5);
             break;
           case 37: //left
@@ -73,16 +74,44 @@ class Game {
 
   drawTitleScreen() {
     const titleImg = new Image();
-    titleImg.src = "/images/risk-runner-title.png";
+    titleImg.src = "/images/risk-runner-title.jpg";
     titleImg.addEventListener("load", () => {
       this.context.drawImage(titleImg, 0, 0);
     });
   }
 
+  /*
+drawTitleText() {
+    //transparent title bg
+    this.context.save();
+    this.context.globalAlpha = 0.5;
+    this.context.rect(0, 0, $canvas.width, $canvas.height);
+    this.context.fillStyle = "white";
+    this.context.fill();
+    this.context.restore();
+
+    //title text
+    this.context.font = "100px italic sans-serif";
+    this.context.fillText("Risk Runner", 200, 240);
+
+    //directions
+    this.context.font = "18px Inconsolata";
+    this.context.fillText("Directions: Move the ball without touching any blocks for as long as possible.", 25, 400);
+
+    //directions
+    this.context.fillText("The more risk you take, the more your score increases!", 25, 450);
+
+    //directions
+    this.context.font = "18px Inconsolata";
+    this.context.fillText("Controls: Move Ball (arrow keys), Start/Pause (spacebar / p), Size Ball (, and .)", 25, 500);
+  }
+*/
+
   drawBackground() {
     if (this.level === 0) {
       this.context.drawImage(backgroundImage0, 0, 0);
     } else if (this.level === 1) {
+      //animate fade in image?
       this.context.drawImage(backgroundImage1, 0, 0);
     } else if (this.level === 2) {
       this.context.drawImage(backgroundImage2, 0, 0);
@@ -190,6 +219,7 @@ class Game {
     }
     this.score.drawScore();
   }
+  
   loop(timestamp) {
     this.runLogic(timestamp);
     this.drawEverything();
@@ -210,8 +240,17 @@ class Game {
     this.running = false;
     this.loseNoise();
     this.pauseGameMusic();
+    this.context.save();
+    this.context.globalAlpha = 1;
+    this.context.rect(180, 200, 550, 160);
+    this.context.fillStyle = "black";
+    this.context.fill();
     this.context.font = "42px sans-serif";
-    this.context.fillText(`Game Over! Score: ${this.score.score}`, 250, $canvas.height / 2);
+    this.context.fillStyle = "white";
+    this.context.fillText(`Game Over! Score: ${this.score.score}`, 250, 280);
+    this.context.font = "18px sans-serif";
+    this.context.fillText("- Press Spacebar to Restart -", 340, 330);
+    this.context.save();
     //context.fillText(`Game Over! Score: ${this.score.score}`, 350, $canvas.height / 2);
   }
 

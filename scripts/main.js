@@ -7,14 +7,15 @@ const $buttonReset = document.getElementById("reset");
 
 //main functions invoked here
 
-$buttonStart.addEventListener("click", () => {
-  newGame.startGame();
-});
-
-$buttonPause.addEventListener("click", () => {
-  newGame.pauseGame();
-});
-
-$buttonReset.addEventListener("click", () => {
-  newGame.resetGame();
+//listen for start/pause game
+window.addEventListener("keydown", (event) => {
+  event.preventDefault();
+  switch (event.keyCode) {
+    case 32: // 'spacebar' start/reset
+      newGame.startGame();
+      break;
+    case 80: // 'p' pause game
+      newGame.pauseGame();
+      break;
+  }
 });

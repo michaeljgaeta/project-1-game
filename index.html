@@ -3,17 +3,21 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/styles/style.css" />
-    <title>Risk Runner</title>
   </head>
   <body>
     <section>
-      <canvas width="960" height="540"></canvas>
+      <canvas id="canvas" width="960" height="540"></canvas>
+      <div style="position: absolute; left: 0; top: 0;">
+        <img id="gb" src="images/gb-background.png" alt="gb-background" />
+      </div>
+      <!--
       <aside>
         <button id="start">Start</button>
         <button id="pause">Pause</button>
         <button id="reset">Reset</button>
-      </aside>
+      </aside>-->
     </section>
     <script src="./scripts/block.js"></script>
     <script src="./scripts/ball.js"></script>
