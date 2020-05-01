@@ -3,7 +3,7 @@ class Ball {
     this.game = game;
     this.x = 50;
     this.y = 250;
-    this.size = 5; //radius
+    this.size = 5;
   }
 
   drawBall() {
@@ -15,6 +15,7 @@ class Ball {
     context.fillStyle = "black";
     context.fill();
   }
+
 
   move(direction) {
     switch (direction) {
