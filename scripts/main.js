@@ -11,6 +11,9 @@ const $buttonReset = document.getElementById("reset");
 window.addEventListener("keydown", (event) => {
   event.preventDefault();
   switch (event.keyCode) {
+    case 13: // 'enter' how to play
+      newGame.drawTitleScreen2();
+      break;
     case 32: // 'spacebar' start/reset
       newGame.startGame();
       break;

@@ -41,7 +41,6 @@ class Game {
     this.setKeyBindings();
     this.drawTitleScreen();
     this.playTitleAudio();
-    //this.drawTitleText();
   }
 
   setKeyBindings() {
@@ -49,10 +48,10 @@ class Game {
       event.preventDefault();
       if (this.running) {
         switch (event.keyCode) {
-          case 77: //'.' bigger ball
+          case 83: //'.' bigger ball
             this.ball.size += 5;
             break;
-          case 78: //',' smaller ball
+          case 65: //',' smaller ball
             this.ball.size = Math.max(this.ball.size - 5, 5);
             break;
           case 37: //left
@@ -74,9 +73,17 @@ class Game {
 
   drawTitleScreen() {
     const titleImg = new Image();
-    titleImg.src = "/images/risk-runner-title.jpg";
+    titleImg.src = "/images/risk-runner-title-1.jpg";
     titleImg.addEventListener("load", () => {
       this.context.drawImage(titleImg, 0, 0);
+    });
+  }
+
+  drawTitleScreen2() {
+    const titleImg2 = new Image();
+    titleImg2.src = "/images/risk-runner-title-2.jpg";
+    titleImg2.addEventListener("load", () => {
+      this.context.drawImage(titleImg2, 0, 0);
     });
   }
 
@@ -219,7 +226,7 @@ drawTitleText() {
     }
     this.score.drawScore();
   }
-  
+
   loop(timestamp) {
     this.runLogic(timestamp);
     this.drawEverything();
@@ -241,15 +248,16 @@ drawTitleText() {
     this.loseNoise();
     this.pauseGameMusic();
     this.context.save();
-    this.context.globalAlpha = 1;
+    this.context.globalAlpha = .8;
     this.context.rect(180, 200, 550, 160);
     this.context.fillStyle = "black";
     this.context.fill();
     this.context.font = "42px sans-serif";
     this.context.fillStyle = "white";
-    this.context.fillText(`Game Over! Score: ${this.score.score}`, 250, 280);
+    this.context.fillText(`Game Over! Score: ${this.score.score}`, 235, 280);
     this.context.font = "18px sans-serif";
     this.context.fillText("- Press Spacebar to Restart -", 340, 330);
+    this.context.globalAlpha = 1;
     this.context.save();
     //context.fillText(`Game Over! Score: ${this.score.score}`, 350, $canvas.height / 2);
   }
