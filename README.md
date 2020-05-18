@@ -1,4 +1,4 @@
-Risk Runner
+*Risk Runner*
 Game using Canvas and JavaScript. Stay alive for as long as possible.
 
 How does it work?
